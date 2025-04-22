@@ -15,28 +15,27 @@ class PatientController extends Controller
             $query->where('nom', 'like', '%' . $request->nom . '%');
         }
 
-        if ($request->filled('prénom')) {
-            $query->where('prénom', 'like', '%' . $request->prénom . '%');
+        if ($request->filled('prenom')) {
+            $query->where('prenom', 'like', '%' . $request->prenom . '%');
         }
 
-        if ($request->filled('dateNaissance')) {
-            $query->whereDate('dateNaissance', $request->dateNaissance);
+        if ($request->filled('date_naissance')) {
+            $query->whereDate('date_naissance', $request->date_naissance);
         }
 
-        return $query->get();
+        // Pagination pour de meilleures performances
+        return $query->paginate(15);
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'nom' => 'required|string|max:255',
-            'prénom' => 'required|string|max:255',
-            'dateNaissance' => 'required|date',
+            'prenom' => 'required|string|max:255',
+            'date_naissance' => 'required|date',
+            'sexe' => 'required|string|in:M,F',
             'adresse' => 'nullable|string',
-            'numéroTéléphone' => 'nullable|string|max:20',
-            'email' => 'nullable|email',
-            'sexe' => 'nullable|in:M,F',
-            'groupeSanguin' => 'nullable|string|max:3',
+            'telephone' => 'nullable|string|max:20',
         ]);
 
         return Patient::create($validated);
@@ -44,7 +43,8 @@ class PatientController extends Controller
 
     public function show($id)
     {
-        return Patient::findOrFail($id);
+        return Patient::with(['dossierMedical', 'rendezVous.medecin', 'prescriptions.medecin'])
+            ->findOrFail($id);
     }
 
     public function update(Request $request, $id)
@@ -53,13 +53,11 @@ class PatientController extends Controller
 
         $validated = $request->validate([
             'nom' => 'sometimes|string|max:255',
-            'prénom' => 'sometimes|string|max:255',
-            'dateNaissance' => 'sometimes|date',
+            'prenom' => 'sometimes|string|max:255',
+            'date_naissance' => 'sometimes|date',
+            'sexe' => 'sometimes|string|in:M,F',
             'adresse' => 'nullable|string',
-            'numéroTéléphone' => 'nullable|string|max:20',
-            'email' => 'nullable|email',
-            'sexe' => 'nullable|in:M,F',
-            'groupeSanguin' => 'nullable|string|max:3',
+            'telephone' => 'nullable|string|max:20',
         ]);
 
         $patient->update($validated);
@@ -69,8 +67,25 @@ class PatientController extends Controller
 
     public function destroy($id)
     {
-        Patient::destroy($id);
-        return response()->json(['message' => 'Patient supprimé']);
+        $patient = Patient::findOrFail($id);
+        $patient->delete();
+        
+        return response()->json(['message' => 'Patient supprimé avec succès']);
+    }
+    
+    public function search(Request $request)
+    {
+        $query = Patient::query();
+
+        if ($request->has('term')) {
+            $term = $request->term;
+            $query->where(function($q) use ($term) {
+                $q->where('nom', 'like', "%{$term}%")
+                  ->orWhere('prenom', 'like', "%{$term}%");
+            });
+        }
+
+        return $query->limit(10)->get(['id', 'nom', 'prenom', 'date_naissance']);
     }
 }
 ?>

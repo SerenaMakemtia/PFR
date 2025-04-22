@@ -2,19 +2,42 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class CompteUtilisateur extends Model
+class CompteUtilisateur extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'compte_utilisateurs';
 
     protected $fillable = [
-        'identifiant', 'motDePasse', 'rôle', 'personneID', 'typePersonne'
+        'email', 
+        'mot_de_passe', 
+        'role'
     ];
 
-    //  Les relations ici sont à gérer dynamiquement selon typePersonne
-    // je vais faire une méthode personnalisée plus tard pour ça
+    protected $hidden = [
+        'mot_de_passe',
+    ];
+
+    // Relation polymorphique
+    public function personne()
+    {
+        return $this->morphTo('personne', 'role', 'id');
+    }
+    
+    // Accesseurs
+    public function getMorphClass()
+    {
+        return $this->role;
+    }
+    
+    // Surcharge du setter pour hacher le mot de passe
+    public function setMotDePasseAttribute($value)
+    {
+        $this->attributes['mot_de_passe'] = bcrypt($value);
+    }
 }
 ?>

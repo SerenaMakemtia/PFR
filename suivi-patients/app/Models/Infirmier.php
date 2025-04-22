@@ -11,12 +11,19 @@ class Infirmier extends Model
     protected $table = 'infirmiers';
 
     protected $fillable = [
-        'nom', 'prenom', 'specialite', 'numero_telephone', 'email', 'etablissementID'
+        'nom', 
+        'prenom', 
+        'etablissement_sante_id'
     ];
 
-    public function etablissement()
+    public function etablissementSante()
     {
-        return $this->belongsTo(EtablissementSante::class, 'etablissementID');
+        return $this->belongsTo(EtablissementSante::class, 'etablissement_sante_id');
+    }
+    
+    public function compteUtilisateur()
+    {
+        return $this->morphOne(CompteUtilisateur::class, 'personne');
     }
 }
 ?>

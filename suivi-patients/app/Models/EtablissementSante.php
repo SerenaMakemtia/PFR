@@ -11,17 +11,19 @@ class EtablissementSante extends Model
     protected $table = 'etablissement_santes';
 
     protected $fillable = [
-        'nom', 'adresse', 'numero_telephone', 'email'
+        'nom', 
+        'adresse', 
+        'telephone'
     ];
 
     public function medecins()
     {
-        return $this->hasMany(Medecin::class, 'etablissementID');
+        return $this->hasMany(Medecin::class, 'etablissement_sante_id');
     }
 
     public function infirmiers()
     {
-        return $this->hasMany(Infirmier::class, 'etablissementID');
+        return $this->hasMany(Infirmier::class, 'etablissement_sante_id');
     }
 }
 ?>

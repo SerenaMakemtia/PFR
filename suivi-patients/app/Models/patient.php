@@ -9,26 +9,35 @@ class Patient extends Model
 {
     use HasFactory;
 
-    protected $table = 'patients'; // nom de la table
+    protected $table = 'patients';
 
     protected $fillable = [
-        'nom', 'prenom', 'date_naissance', 'adresse', 'numero_telephone',
-        'email', 'sexe', 'groupe_sanguin'
+        'nom', 
+        'prenom', 
+        'date_naissance', 
+        'sexe', 
+        'adresse', 
+        'telephone'
     ];
 
-    public function dossiersMedicaux()
+    public function dossierMedical()
     {
-        return $this->hasMany(DossierMedical::class);
+        return $this->hasOne(DossierMedical::class, 'patient_id');
     }
 
     public function prescriptions()
     {
-        return $this->hasMany(Prescription::class);
+        return $this->hasMany(Prescription::class, 'patient_id');
     }
 
     public function rendezVous()
     {
-        return $this->hasMany(RendezVous::class);
+        return $this->hasMany(RendezVous::class, 'patient_id');
+    }
+    
+    public function compteUtilisateur()
+    {
+        return $this->morphOne(CompteUtilisateur::class, 'personne');
     }
 }
 

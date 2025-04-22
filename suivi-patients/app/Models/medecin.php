@@ -11,22 +11,30 @@ class Medecin extends Model
     protected $table = 'medecins';
 
     protected $fillable = [
-        'nom', 'prenom', 'specialite', 'numero_telephone', 'email', 'etablissementID'
+        'nom', 
+        'prenom', 
+        'specialite', 
+        'etablissement_sante_id'
     ];
 
     public function rendezVous()
     {
-        return $this->hasMany(RendezVous::class);
+        return $this->hasMany(RendezVous::class, 'medecin_id');
     }
 
     public function prescriptions()
     {
-        return $this->hasMany(Prescription::class);
+        return $this->hasMany(Prescription::class, 'medecin_id');
     }
 
-    public function etablissement()
+    public function etablissementSante()
     {
-        return $this->belongsTo(EtablissementSante::class, 'etablissementID');
+        return $this->belongsTo(EtablissementSante::class, 'etablissement_sante_id');
+    }
+    
+    public function compteUtilisateur()
+    {
+        return $this->morphOne(CompteUtilisateur::class, 'personne');
     }
 }
 ?>

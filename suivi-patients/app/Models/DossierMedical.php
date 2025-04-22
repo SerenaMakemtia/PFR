@@ -8,15 +8,30 @@ class DossierMedical extends Model
 {
     use HasFactory;
 
-    protected $table = 'dossier_medicaux';
+    protected $table = 'dossier_medicals';
 
     protected $fillable = [
-        'patientID', 'antecedents', 'allergies', 'traitements', 'notes'
+        'patient_id', 
+        'historique',
+        'antecedents',
+        'allergies',
+        'traitements'
     ];
 
     public function patient()
     {
-        return $this->belongsTo(Patient::class, 'patientID');
+        return $this->belongsTo(Patient::class, 'patient_id');
+    }
+    
+    // Nous ajoutons ces méthodes pour garantir la compatibilité avec le code existant
+    public function getAntecedentsAttribute()
+    {
+        return $this->historique ?? '';
+    }
+    
+    public function setAntecedentsAttribute($value)
+    {
+        $this->attributes['historique'] = $value;
     }
 }
 ?>
