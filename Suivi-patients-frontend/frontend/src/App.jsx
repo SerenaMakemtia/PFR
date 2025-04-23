@@ -5,17 +5,17 @@ import useAuth from './hooks/useAuth'
 
 // Layouts
 import AppLayout from './components/layout/AppLayout'
-import AuthLayout from './components/layout/AuthLayout'
+//import AuthLayout from './components/layout/AuthLayout'
 
 // Pages d'authentification
 import Login from './pages/auth/Login'
-import ForgotPassword from './pages/auth/ForgotPassword'
-import ResetPassword from './pages/auth/ResetPassword'
+//import ForgotPassword from './pages/auth/ForgotPassword'
+//import ResetPassword from './pages/auth/ResetPassword'
 
 // Pages de l'application
 import Dashboard from './pages/dashboard/Dashboard'
 import PatientsListPage from './pages/patients/PatientsListPage'
-import PatientDetailsPage from './pages/patients/PatientDetailsPage'
+//import PatientDetailsPage from './pages/patients/PatientDetailsPage'
 import PatientFormPage from './pages/patients/PatientFormPage'
 
 // Protéger les routes privées
