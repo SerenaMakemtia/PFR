@@ -1,8 +1,8 @@
 // components/medical-records/DocumentViewer.jsx
 import React, { useState } from 'react';
-import { Card } from '../common/Card';
-import { Button } from '../common/Button';
-import { Modal } from '../common/Modal';
+import  Card  from '../common/Card';
+import  Button  from '../common/Button';
+import  Modal  from '../common/Modal';
 
 const DocumentViewer = ({ document }) => {
   const [showModal, setShowModal] = useState(false);

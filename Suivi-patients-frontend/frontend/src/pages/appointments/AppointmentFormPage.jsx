@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getAppointmentById, createAppointment, updateAppointment } from '../../services/appointmentService';
-import { getAllPatients } from '../../services/patientService';
-import { getAllUsers } from '../../services/userService';
+//import { getAppointmentById, createAppointment, updateAppointment } from '../../services/appointments.Service';
+import { getAllPatients } from '../../services/patients.Service';
+//import { getAllUsers } from '../../services/users.Service';
 
 const AppointmentForm = ({ mode = 'create' }) => {
   const navigate = useNavigate();

@@ -1,10 +1,10 @@
 // components/medical-records/PrescriptionList.jsx
 import React, { useState, useEffect } from 'react';
-import { Card } from '../common/Card';
-import { Table } from '../common/Table';
-import { Button } from '../common/Button';
-import { Modal } from '../common/Modal';
-import { useApi } from '../../hooks/useApi';
+import  Card  from '../common/Card';
+import  Table  from '../common/Table';
+import  Button  from '../common/Button';
+import  Modal  from '../common/Modal';
+import  useApi  from '../../hooks/useApi';
 import { formatDate } from '../../utils/dateUtils';
 
 const PrescriptionList = ({ patientId }) => {

@@ -51,3 +51,16 @@ export const updateAppointmentStatus = async (id, status) => {
   const response = await api.patch(`${BASE_URL}/${id}/status`, { status });
   return response.data;
 };
+const appointmentsService = {
+  getAllAppointments,
+  getAppointmentById,
+  createAppointment,
+  updateAppointment,
+  deleteAppointment,
+  getAppointmentsByPatient,
+  getAppointmentsByDoctor,
+  getAppointmentsByDateRange,
+  updateAppointmentStatus
+};
+
+export default appointmentsService;

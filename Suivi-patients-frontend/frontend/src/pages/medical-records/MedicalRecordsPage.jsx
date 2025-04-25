@@ -1,12 +1,12 @@
 // pages/medical-records/MedicalRecordsPage.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button } from '../../components/common/Button';
+import  Button  from '../../components/common/Button';
 import { Tabs, Tab } from '../../components/common/Tabs';
 import MedicalHistory from '../../components/medical-records/MedicalHistory';
 import PrescriptionList from '../../components/medical-records/PrescriptionList';
 import DocumentViewer from '../../components/medical-records/DocumentViewer';
-import { useApi } from '../../hooks/useApi';
+import  useApi  from '../../hooks/useApi';
 
 const MedicalRecordsPage = () => {
   const { patientId } = useParams();

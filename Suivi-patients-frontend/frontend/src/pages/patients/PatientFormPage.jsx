@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getPatientById, createPatient, updatePatient } from '../../services/patientService';
+import { getPatientById, createPatient, updatePatient } from '../../services/patients.Service';
 
 // Composants communs à importer
 // Ces composants seraient à créer dans le dossier components/common

@@ -1,9 +1,9 @@
 // components/medical-records/MedicalHistory.jsx
 import React, { useState, useEffect } from 'react';
-import { Card } from '../common/Card';
-import { Table } from '../common/Table';
-import { SearchBar } from '../common/SearchBar';
-import { useApi } from '../../hooks/useApi';
+import  Card  from '../common/Card';
+import  Table  from '../common/Table';
+import  SearchBar  from '../common/SearchBar';
+import  useApi  from '../../hooks/useApi';
 import { formatDate } from '../../utils/dateUtils';
 
 const MedicalHistory = ({ patientId }) => {

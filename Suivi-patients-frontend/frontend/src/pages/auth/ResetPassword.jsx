@@ -2,8 +2,31 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
-import { useAuth } from '../../hooks/useAuth';
-import { validatePassword } from '../../utils/validators';
+import useAuth from '/src/hooks/useAuth.jsx';
+//import { validatePassword } from '/src/utils/validators.js';
+// Change this line in ResetPassword.jsx
+import { isStrongPassword } from '/src/utils/validators.js';
+
+// Then update your validateForm function to use isStrongPassword instead of validatePassword
+const validateForm = () => {
+  let isValid = true;
+  
+  // Validate password
+  if (!isStrongPassword(password)) {
+    setPasswordError('Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.');
+    isValid = false;
+  } else {
+    setPasswordError(null);
+  }
+  
+  // Check password confirmation
+  if (password !== passwordConfirmation) {
+    setError('Les mots de passe ne correspondent pas.');
+    isValid = false;
+  }
+  
+  return isValid;
+};
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();
